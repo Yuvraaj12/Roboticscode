@@ -1,0 +1,63 @@
+#include "main.h" // IWYU pragma: keep
+#include "lemlib/api.hpp"
+#include "config.h"
+#include "autons.h"
+#include "subsystems.h"
+#include "mcl.hpp"
+int auton_select = 0;
+int last_auton_cycle_ms = 0;
+
+void selector_loop() {
+ 	while (true) {
+ 		if (pros::competition::is_disabled() && auto_selector.get_new_press()) {
+ 			if (pros::millis() - last_auton_cycle_ms >= 50) {
+ 				last_auton_cycle_ms = pros::millis();
+ 				auton_select = (auton_select + 1) % 6;
+ 			}
+ 		}
+ 		pros::delay(20);
+ 	}
+}
+
+void autonomous(){
+ 	switch(auton_select){
+ 		case 0: left_red(); break;
+ 		case 1: right_red(); break;
+ 		case 2: left_blue(); break;
+ 		case 3: right_blue(); break;
+ 		case 4: sawp(); break;
+ 		case 5: skills(); break;
+ 	}
+}
+
+void print_brain(){
+ 	while(true){
+ 		pros::lcd::print(0, "X: %.2f", chassis.getPose().x);
+ 		pros::lcd::print(1, "Y: %.2f", chassis.getPose().y);
+ 		pros::lcd::print(2, "T: %.2f", chassis.getPose().theta);
+ 		pros::lcd::print(3, "DN:%.2f", dNorth.get());
+ 		pros::lcd::print(4, "DS: %.2f", dSouth.get());
+ 		pros::lcd::print(5, "DE: %.2f", dEast.get());
+ 		pros::lcd::print(6, "DW:%.2f", dWest.get());
+ 		pros::lcd::print(7, "Auto: %d", auton_select);
+ 		pros::delay(100);
+ 	}
+}
+
+void initialize() {
+    pros::lcd::initialize(); // initialize brain screen
+    chassis.calibrate(); // calibrate sensors
+	pros::Task print_brain_task(print_brain); // print position to brain screen
+	pros::Task selector_task(selector_loop); // watch the physical auton selector while disabled
+}
+void opcontrol() {
+	pros::Controller master(pros::E_CONTROLLER_MASTER);
+	// drive with arcade controls
+	while (true) {
+		double forward = master.get_analog(E_CONTROLLER_ANALOG_LEFT_Y);
+		double turn = master.get_analog(E_CONTROLLER_ANALOG_RIGHT_X);
+		chassis.arcade(forward, turn);
+
+		pros::delay(20);
+	}
+}
