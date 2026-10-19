@@ -1,6 +1,8 @@
 using namespace pros;
 extern Imu imu;
-extern pros::ADIDigitalIn auto_selector;
+extern pros::MotorGroup lift_motors;
+extern pros::Motor claw;
+extern pros::adi::DigitalIn auto_selector;
 extern lemlib::Chassis chassis;
 extern pros::Distance dNorth;
 extern pros::Distance dEast;

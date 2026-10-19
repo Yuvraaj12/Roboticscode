@@ -6,6 +6,16 @@
 #include "mcl.hpp"
 int auton_select = 0;
 int last_auton_cycle_ms = 0;
+pros::Controller master(pros::E_CONTROLLER_MASTER);
+
+void subsystem_loop(void*) {
+ 	while (true) {
+ 		updateClawFromController(master);
+ 		updateLiftFromController(master);
+ 		updateLiftPID();
+ 		pros::delay(20);
+ 	}
+}
 
 void selector_loop() {
  	while (true) {
@@ -30,34 +40,49 @@ void autonomous(){
  	}
 }
 
-void print_brain(){
- 	while(true){
- 		pros::lcd::print(0, "X: %.2f", chassis.getPose().x);
- 		pros::lcd::print(1, "Y: %.2f", chassis.getPose().y);
- 		pros::lcd::print(2, "T: %.2f", chassis.getPose().theta);
- 		pros::lcd::print(3, "DN:%.2f", dNorth.get());
- 		pros::lcd::print(4, "DS: %.2f", dSouth.get());
- 		pros::lcd::print(5, "DE: %.2f", dEast.get());
- 		pros::lcd::print(6, "DW:%.2f", dWest.get());
- 		pros::lcd::print(7, "Auto: %d", auton_select);
- 		pros::delay(100);
- 	}
+void print_brain() {
+    while (true) {
+		const char* auton_name = "Unknown";
+
+		switch (auton_select) {
+		    case 0: auton_name = "Left Red"; break;
+		    case 1: auton_name = "Right Red"; break;
+		    case 2: auton_name = "Left Blue"; break;
+		    case 3: auton_name = "Right Blue"; break;
+		    case 4: auton_name = "Sawp"; break;
+		    case 5: auton_name = "Skills"; break;
+		    default: auton_name = "Unknown"; break;
+		}
+
+		pros::lcd::print(0, "X: %.2f", chassis.getPose().x);
+		pros::lcd::print(1, "Y: %.2f", chassis.getPose().y);
+		pros::lcd::print(2, "T: %.2f", chassis.getPose().theta);
+		pros::lcd::print(3, "DN: %.2f", dNorth.get() / 25.4);
+		pros::lcd::print(4, "DS: %.2f", dSouth.get() / 25.4);
+		pros::lcd::print(5, "DE: %.2f", dEast.get() / 25.4);
+		pros::lcd::print(6, "DW: %.2f", dWest.get() / 25.4);
+		pros::lcd::print(7, "Auto: %s", auton_name);
+		pros::delay(100);
+    }
 }
 
 void initialize() {
-    pros::lcd::initialize(); // initialize brain screen
-    chassis.calibrate(); // calibrate sensors
-	pros::Task print_brain_task(print_brain); // print position to brain screen
+	pros::lcd::initialize(); // initialize brain screen
+	chassis.calibrate(); // calibrate sensors
+	lift_motors.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	lift_motors.tare_position();
+	lift_target = 0.0;
+	claw.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	pros::Task print_brain_task(print_brain); // print pose + auton info to the brain screen
 	pros::Task selector_task(selector_loop); // watch the physical auton selector while disabled
+	pros::Task subsystem_task(subsystem_loop); // keep lift and claw logic updating in the background
 }
 void opcontrol() {
-	pros::Controller master(pros::E_CONTROLLER_MASTER);
-	// drive with arcade controls
 	while (true) {
 		double forward = master.get_analog(E_CONTROLLER_ANALOG_LEFT_Y);
 		double turn = master.get_analog(E_CONTROLLER_ANALOG_RIGHT_X);
 		chassis.arcade(forward, turn);
-
+  
 		pros::delay(20);
 	}
 }

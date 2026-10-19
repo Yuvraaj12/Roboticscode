@@ -107,10 +107,8 @@ void test360() {
   }
 }
 
-
 void left_red() {
-    
-}
+    }
 
 void right_red() {
 
