@@ -637,7 +637,7 @@
     "upload_options": {
       "description": "83280Y",
       "icon": "pizza",
-      "after": "run"
+      "after": "screen"
     },
     "use_early_access": false
   }

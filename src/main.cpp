@@ -10,7 +10,9 @@ pros::Controller master(pros::E_CONTROLLER_MASTER);
 
 void subsystem_loop(void*) {
  	while (true) {
- 		updateClawFromController(master);
+		if (!pros::competition::is_autonomous()) {
+			updateClawFromController(master);
+		}
  		updateLiftFromController(master);
  		updateLiftPID();
  		pros::delay(20);
@@ -31,8 +33,8 @@ void selector_loop() {
 
 void autonomous(){
  	switch(auton_select){
- 		case 0: left_red(); break;
- 		case 1: right_red(); break;
+ 		case 0: right_red(); break;
+ 		case 1: left_red(); break;
  		case 2: left_blue(); break;
  		case 3: right_blue(); break;
  		case 4: sawp(); break;
@@ -78,6 +80,8 @@ void initialize() {
 	pros::Task subsystem_task(subsystem_loop); // keep lift and claw logic updating in the background
 }
 void opcontrol() {
+	setLiftSpeed(127.0);
+
 	while (true) {
 		double forward = master.get_analog(E_CONTROLLER_ANALOG_LEFT_Y);
 		double turn = master.get_analog(E_CONTROLLER_ANALOG_RIGHT_X);

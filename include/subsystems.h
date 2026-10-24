@@ -9,6 +9,7 @@ extern double lift_error_sum;
 extern double last_lift_error;
 
 void setLiftTarget(double target);
+void setLiftSpeed(double speed);
 void updateClawFromController(pros::Controller& controller);
 void updateLiftFromController(pros::Controller& controller);
 void updateLiftPID();

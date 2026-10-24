@@ -108,9 +108,138 @@ void test360() {
 }
 
 void left_red() {
+      // set position to x:0, y:0, heading:0
+    chassis.setPose(0, 0, 0);
+
+    claw.move(15);
+    setLiftTarget(500);
+
+    pros::delay(100);
+
+    chassis.moveToPoint(0, -14, 1000, {.forwards = false, .maxSpeed = 127}, false);
+
+    chassis.turnToHeading(270, 1000, {.maxSpeed = 127}, false);
+
+    chassis.moveToPoint(-22, -12, 1000, {.maxSpeed = 90}, false);
+
+    /*
+    setLiftSpeed(100);
+    setLiftTarget(0);
+    
+    pros::delay(150);
+
+    claw.move(-60);
+    pros::delay(300);
+
+    chassis.moveToPoint(10.5, -12, 1000, {.forwards = false, .maxSpeed = 127}, false);
+
+    chassis.turnToHeading(0, 1000, {.maxSpeed = 127}, false);
+
+    setLiftSpeed(60);
+    setLiftTarget(0);
+
+    pros::delay(100);
+
+    claw.move(127);
+
+    chassis.moveToPoint(9, 0, 1000, {.maxSpeed = 90}, false);
+
+    pros::delay(300);
+    
+    setLiftSpeed(60);
+    setLiftTarget(900);
+
+    chassis.moveToPoint(9.5, -12, 6000, {.forwards = false, .maxSpeed = 70}, false);
+
+
+    chassis.turnToHeading(270, 4000, {.maxSpeed = 100}, false);
+
+    setLiftSpeed(127);
+    setLiftTarget(800);
+    pros::delay(500);
+
+    chassis.moveToPoint(-18, -7, 6000, { .maxSpeed = 90}, false);
+
+
+    setLiftSpeed(90);
+    setLiftTarget(800);
+
+    pros::delay(400);
+
+    claw.move(-60);
+    pros::delay(1000);
+
+*/
+
     }
 
 void right_red() {
+
+    
+    chassis.setPose(0, 0, 0);
+
+    claw.move(15);
+    setLiftTarget(800);
+
+    pros::delay(200);
+
+    chassis.moveToPoint(0, -13.5, 1000, {.forwards = false, .maxSpeed = 127}, false);
+
+    chassis.turnToHeading(90, 1000, {.maxSpeed = 127}, false);
+
+    chassis.moveToPoint(22, -13.5, 1000, {.maxSpeed = 127}, false);
+
+    setLiftSpeed(70);
+    setLiftTarget(0);
+
+    pros::delay(400);
+
+    claw.move(-60);
+    pros::delay(300);
+
+    chassis.moveToPoint(-11, -13.5, 1000, {.forwards = false, .maxSpeed = 127}, false);
+
+    chassis.turnToHeading(0, 1000, {.maxSpeed = 127}, false);
+
+    setLiftSpeed(60);
+    setLiftTarget(0);
+
+    pros::delay(100);
+
+    claw.move(127);
+
+    chassis.moveToPoint(-11, 2, 1000, {.maxSpeed = 90}, false);
+
+    chassis.moveToPoint(-10, 0, 6000, {.forwards = false, .maxSpeed = 50}, false);
+
+    chassis.moveToPoint(-10, 1, 6000, { .maxSpeed = 50}, false);
+
+    pros::delay(600);
+    
+    setLiftSpeed(60);
+    setLiftTarget(700);
+
+    claw.move(20);
+
+    chassis.moveToPoint(-10, -12, 6000, {.forwards = false, .maxSpeed = 100}, false);
+
+    setLiftTarget(1000);
+
+    chassis.turnToHeading(90, 1000, {.maxSpeed = 90}, false);
+
+    chassis.moveToPoint(23, -12, 1000, {.maxSpeed = 90}, false);
+
+    pros::delay(400);
+
+    setLiftSpeed(60);
+    setLiftTarget(350);
+
+    pros::delay(400);
+
+    claw.move(-127);
+
+    pros::delay(500);
+
 
 }
 void left_blue() {
