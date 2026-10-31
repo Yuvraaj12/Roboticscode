@@ -33,8 +33,8 @@ void selector_loop() {
 
 void autonomous(){
  	switch(auton_select){
- 		case 0: right_red(); break;
- 		case 1: left_red(); break;
+ 		case 0: left_red(); break;
+ 		case 1: right_red(); break;
  		case 2: left_blue(); break;
  		case 3: right_blue(); break;
  		case 4: sawp(); break;

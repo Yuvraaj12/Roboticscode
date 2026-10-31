@@ -169,12 +169,10 @@ void left_red() {
     claw.move(-60);
     pros::delay(1000);
 
-*/
-
-    }
+    */
+}
 
 void right_red() {
-
     
     chassis.setPose(0, 0, 0);
 
@@ -183,11 +181,11 @@ void right_red() {
 
     pros::delay(200);
 
-    chassis.moveToPoint(0, -13.5, 1000, {.forwards = false, .maxSpeed = 127}, false);
+    chassis.moveToPoint(0, -13.5, 1100, {.forwards = false, .maxSpeed = 110}, false);
 
-    chassis.turnToHeading(90, 1000, {.maxSpeed = 127}, false);
+    chassis.turnToHeading(90, 400, {.maxSpeed = 110}, false);
 
-    chassis.moveToPoint(22, -13.5, 1000, {.maxSpeed = 127}, false);
+    chassis.moveToPoint(22, -13.5, 1100, {.maxSpeed = 95}, false);
 
     setLiftSpeed(70);
     setLiftTarget(0);
@@ -197,9 +195,9 @@ void right_red() {
     claw.move(-60);
     pros::delay(300);
 
-    chassis.moveToPoint(-11, -13.5, 1000, {.forwards = false, .maxSpeed = 127}, false);
+    chassis.moveToPoint(-9, -13.5, 1100, {.forwards = false, .maxSpeed = 100}, false);
 
-    chassis.turnToHeading(0, 1000, {.maxSpeed = 127}, false);
+    chassis.turnToHeading(0, 400, {.maxSpeed = 110}, false);
 
     setLiftSpeed(60);
     setLiftTarget(0);
@@ -207,27 +205,33 @@ void right_red() {
     pros::delay(100);
 
     claw.move(127);
+    
+    chassis.moveToPoint(-10.5, 1, 600, {.maxSpeed = 90}, false);
 
-    chassis.moveToPoint(-11, 2, 1000, {.maxSpeed = 90}, false);
+    chassis.moveToPoint(-10.5, -2, 200, {.forwards = false, .maxSpeed = 30}, false);
 
-    chassis.moveToPoint(-10, 0, 6000, {.forwards = false, .maxSpeed = 50}, false);
+    chassis.moveToPoint(-10.5, 0, 200, { .maxSpeed = 90}, false);
 
-    chassis.moveToPoint(-10, 1, 6000, { .maxSpeed = 50}, false);
+    chassis.moveToPoint(-10.5, 1, 200, {.maxSpeed = 90}, false);
 
-    pros::delay(600);
+    chassis.moveToPoint(-10.5, -2, 200, {.forwards = false, .maxSpeed = 30}, false);
+
+    chassis.moveToPoint(-10.5, 0, 200, { .maxSpeed = 90}, false);
+
+    pros::delay(400);
     
     setLiftSpeed(60);
     setLiftTarget(700);
 
     claw.move(20);
 
-    chassis.moveToPoint(-10, -12, 6000, {.forwards = false, .maxSpeed = 100}, false);
+    chassis.moveToPoint(-9.5, -12, 1100, {.forwards = false, .maxSpeed = 110}, false);
 
     setLiftTarget(1000);
 
-    chassis.turnToHeading(90, 1000, {.maxSpeed = 90}, false);
+    chassis.turnToHeading(90, 400, {.maxSpeed = 110}, false);
 
-    chassis.moveToPoint(23, -12, 1000, {.maxSpeed = 90}, false);
+    chassis.moveToPoint(23, -12, 1100, {.maxSpeed = 80}, false);
 
     pros::delay(400);
 
@@ -240,7 +244,70 @@ void right_red() {
 
     pros::delay(500);
 
+    chassis.moveToPoint(-14, -13.5, 1100, {.forwards = false, .maxSpeed = 110}, false);
 
+    chassis.turnToHeading(0, 1100, {.maxSpeed = 110}, false);
+
+    setLiftSpeed(60);
+    setLiftTarget(0);
+
+    pros::delay(100);
+    claw.move(127);
+
+    chassis.moveToPoint(-14, 2, 600, {.maxSpeed = 90}, false);
+
+    chassis.moveToPoint(-14.5, 0, 200, {.forwards = false, .maxSpeed = 30}, false);
+
+    chassis.moveToPoint(-14.5, 1, 200, { .maxSpeed = 90}, false);
+
+    pros::delay(600);
+    
+    setLiftSpeed(60);
+    setLiftTarget(700);
+
+    chassis.moveToPoint(-14, -12, 1100, {.forwards = false, .maxSpeed = 100}, false);
+
+    setLiftTarget(1400);
+
+    claw.move(20);
+
+    chassis.turnToHeading(90, 1100, {.maxSpeed = 90}, false);
+
+    chassis.moveToPoint(23, -12, 1100, {.maxSpeed = 90}, false);
+
+    pros::delay(400);
+
+    setLiftSpeed(60);
+    setLiftTarget(350);
+
+    pros::delay(400);
+
+    claw.move(-127);
+
+    pros::delay(500);
+
+    chassis.turnToHeading(90, 1100, {.maxSpeed = 127}, false);
+
+    chassis.moveToPoint(22, -13.5, 1100, {.maxSpeed = 127}, false);
+
+    setLiftSpeed(70);
+    setLiftTarget(0);
+
+    pros::delay(400);
+
+    claw.move(-60);
+    pros::delay(300);
+
+    chassis.moveToPoint(-11, -13.5, 1100, {.forwards = false, .maxSpeed = 127}, false);
+
+    chassis.turnToHeading(0, 1100, {.maxSpeed = 127}, false);
+
+    setLiftSpeed(60);
+    setLiftTarget(0);
+
+    claw.move(-127);
+
+    pros::delay(1000);
 }
 void left_blue() {
 
